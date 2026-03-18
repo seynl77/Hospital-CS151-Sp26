@@ -27,3 +27,13 @@ Elaine
 - Patient class
 - 
 - Initial repository setup
+
+Andrew
+- Doctor class
+
+Derek
+- Person class
+
+Serife Aynur Kocdas
+- Bill class
+- Room class
