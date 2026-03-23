@@ -1,4 +1,4 @@
-public class Person {
+public abstract class Person {
     private String name;
     private int id;
     private int age;
@@ -12,6 +12,8 @@ public class Person {
         this.gender = gender;
         this.phoneNumber = phoneNumber;
     }
+
+    public abstract void displayRole();
 
     public String getName() {
         return name;
@@ -51,6 +53,15 @@ public class Person {
 
     public void setPhoneNumber(int phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    @Override
+    public String toString() {
+        return "name: " + name + "\n" +
+               "id: " + id + "\n" +
+               "age: " + age + "\n" +
+               "gender: " + gender + "\n" +
+               "phone number: " + phoneNumber + "\n";
     }
 
 }
