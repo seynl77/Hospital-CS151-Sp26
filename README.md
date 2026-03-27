@@ -14,6 +14,7 @@ Main classes include:
 - Bill
 - Room
 - Appointment
+- Main
 
 These classes interact with each other to simulate hospital operations.
 
@@ -38,6 +39,7 @@ Andrew
 Derek
 - Person class
 - Hospital class
+- Main class
 
 Serife Aynur Kocdas
 - Bill class
