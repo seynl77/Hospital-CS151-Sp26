@@ -4,12 +4,10 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
-
 import src.exceptions.InvalidOperationException;
 import src.model.Appointment;
 import src.model.Bill;
 import src.model.Doctor;
-import src.exceptions.MaxCapacityException;
 import src.model.Hospital;
 import src.model.Patient;
 import src.model.Room;
@@ -173,10 +171,7 @@ public class Main {
                 System.out.println("Bills for " + pBill.getName() + ":");
                 for (Appointment a : appointments) {
                     if (a.getPatient() == pBill) {
-                        Bill b = null;
-                        try {
-                            b = a.getClass().getDeclaredField("bill") != null ? (Bill)a.getClass().getDeclaredField("bill").get(a) : null;
-                        } catch (Exception ignored) {}
+                        Bill b = a.getBill();
                         if (b != null) {
                             System.out.println("Appointment ID: " + a.getAppointmentId() + " | Bill status: " + b.isPaid());
                         } else {
@@ -418,8 +413,103 @@ public class Main {
 
     // -------------------- Billing Menu --------------------
     private static void menuBillings() {
-        System.out.println("Billing feature not implemented yet.");
+    System.out.print(
+        "Billing Management\n" +
+        "==================\n" +
+        "1. View Bill for Appointment\n" +
+        "2. Pay Bill\n" +
+        "3. Add Charge\n" +
+        "4. Apply Discount\n" +
+        "5. Return to Main Menu\n" +
+        "Choose an option: "
+    );
+
+    String input = getInput();
+
+    switch (input) {
+        case "1":
+            if (appointments.isEmpty()) {
+                System.out.println("No appointments available.");
+                break;
+            }
+            try {
+                Appointment a = selectAppointment();
+                Bill b = a.getBill();
+                if (b == null) {
+                    System.out.println("No bill has been generated for this appointment.");
+                } else {
+                    b.displayBill();
+                }
+            } catch (Exception e) {
+                System.out.println("Error: " + e.getMessage());
+            }
+            break;
+
+        case "2":
+            if (appointments.isEmpty()) {
+                System.out.println("No appointments available.");
+                break;
+            }
+            try {
+                Appointment a = selectAppointment();
+                Bill b = a.getBill();
+                if (b == null) {
+                    System.out.println("No bill has been generated for this appointment.");
+                } else {
+                    b.payBill();
+                }
+            } catch (Exception e) {
+                System.out.println("Error: " + e.getMessage());
+            }
+            break;
+
+        case "3":
+            if (appointments.isEmpty()) {
+                System.out.println("No appointments available.");
+                break;
+            }
+            try {
+                Appointment a = selectAppointment();
+                Bill b = a.getBill();
+                if (b == null) {
+                    System.out.println("No bill has been generated for this appointment.");
+                } else {
+                    System.out.print("Enter additional charge: ");
+                    double extra = Double.parseDouble(getInput());
+                    b.addCharge(extra);
+                }
+            } catch (Exception e) {
+                System.out.println("Error: " + e.getMessage());
+            }
+            break;
+
+        case "4":
+            if (appointments.isEmpty()) {
+                System.out.println("No appointments available.");
+                break;
+            }
+            try {
+                Appointment a = selectAppointment();
+                Bill b = a.getBill();
+                if (b == null) {
+                    System.out.println("No bill has been generated for this appointment.");
+                } else {
+                    System.out.print("Enter discount percent: ");
+                    double percent = Double.parseDouble(getInput());
+                    b.applyDiscount(percent);
+                }
+            } catch (Exception e) {
+                System.out.println("Error: " + e.getMessage());
+            }
+            break;
+
+        case "5":
+            return;
+
+        default:
+            System.out.println("Invalid option");
     }
+}
 
     // -------------------- Utility Methods --------------------
     private static Patient selectPatient() {

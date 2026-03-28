@@ -39,6 +39,7 @@ public class Appointment {
     public Doctor getDoctor() { return doctor; }
     public Patient getPatient() { return patient; }
     public String getStatus() { return status; }
+    public Bill getBill() { return bill; }
 
     public void cancel() throws InvalidOperationException {
         if (status.equals("Completed")) {
