@@ -29,13 +29,13 @@ https://github.com/seynl77/Hospital-CS151-Sp26
 Once running, you interact with the system via a console menu.
 
 Main Menu Options
-Patient Management – Add, view, admit, discharge, update medical history.
-Doctor Management – Add and view doctors.
-Appointment Management – Create, view, cancel, and complete appointments.
-Room Management – Add rooms, assign patients, vacate, view info, and mark maintenance.
-Billing Management – (Optional) Generate bills, pay bills, and add charges.
-View Hospital Info – Displays general hospital information.
-Exit – Close the application.
+- Patient Management – Add, view, admit, discharge, update medical history.
+- Doctor Management – Add and view doctors.
+- Appointment Management – Create, view, cancel, and complete appointments.
+- Room Management – Add rooms, assign patients, vacate, view info, and mark maintenance.
+- Billing Management – (Optional) Generate bills, pay bills, and add charges.
+- View Hospital Info – Displays general hospital information.
+- Exit – Close the application.
 
 Example Interaction:
 
