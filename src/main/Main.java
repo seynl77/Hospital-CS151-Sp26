@@ -439,6 +439,9 @@ public class Main {
         int idx = Integer.parseInt(getInput());
         return doctors.get(idx);
     }
+}
+
+    
 
     private static Appointment selectAppointment() {
         for (int i = 0; i < appointments.size(); i++) {

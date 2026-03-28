@@ -2,7 +2,6 @@ package src.model;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-
 import src.exceptions.InvalidAmountException;
 import src.exceptions.InvalidOperationException;
 import src.exceptions.MaxCapacityException;
@@ -112,6 +111,6 @@ public class Appointment {
         System.out.println("Date: " + date);
         System.out.println("Time: " + time);
         System.out.println("Status: " + status);
-        System.out.println("Bill status: " + (bill == null ? "Not generated" : bill.getStatus()));
+        System.out.println("Bill status: " + (bill == null ? "Not generated" : (bill.isPaid() ? "Paid" : "Unpaid")));
     }
 }

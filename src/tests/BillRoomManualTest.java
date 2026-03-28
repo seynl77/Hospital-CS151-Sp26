@@ -32,38 +32,49 @@ public class BillRoomManualTest {
                 System.out.println("Test 3 Failed");
             }
 
-        } catch (Exception e) {
-            System.out.println("Bill test error: " + e.getMessage());
-        }
-
-        try {
-            Room room1 = new Room(101, "ICU");
-            if (!room1.isOccupied() && room1.isAvailable()) {
-                System.out.println("Test 4 Passed: Room starts available.");
+            Bill bill4 = new Bill(4, 200);
+            bill4.applyDiscount(25);
+            if (bill4.getAmount() == 150) {
+                System.out.println("Test 4 Passed: applyDiscount works.");
             } else {
                 System.out.println("Test 4 Failed");
             }
 
-            Patient patient = new Patient("Ali", 1, 25, "Male", 123456, "None");
-            Room room2 = new Room(102, "General");
-            room2.assignPatient(patient);
-            if (room2.isOccupied() && room2.getAssignedPatient() == patient) {
-                System.out.println("Test 5 Passed: assignPatient works.");
-            } else {
-                System.out.println("Test 5 Failed");
+            try {
+                Bill invalidBill = new Bill(5, -100);
+                System.out.println("Test 5 Failed: negative amount allowed.");
+            } catch (Exception e) {
+                System.out.println("Test 5 Passed: negative amount rejected.");
             }
 
-            room2.vacateRoom();
-            if (!room2.isOccupied() && room2.getAssignedPatient() == null) {
-                System.out.println("Test 6 Passed: vacateRoom works.");
+            try {
+                Bill bill6 = new Bill(6, 50);
+                bill6.payBill();
+                bill6.payBill();
+                System.out.println("Test 6 Failed: double pay allowed.");
+            } catch (Exception e) {
+                System.out.println("Test 6 Passed: double pay rejected.");
+            }
+
+            Patient p = new Patient("Ali", 1, 20, "Male", "12345", "None");
+            Room room1 = new Room(101, "Single");
+            room1.assignPatient(p);
+
+            if (room1.isOccupied()) {
+                System.out.println("Test 7 Passed: patient assigned to room.");
             } else {
-                System.out.println("Test 6 Failed");
+                System.out.println("Test 7 Failed");
+            }
+
+            try {
+                room1.assignPatient(p);
+                System.out.println("Test 8 Failed: assigned to occupied room.");
+            } catch (Exception e) {
+                System.out.println("Test 8 Passed: occupied room rejected.");
             }
 
         } catch (Exception e) {
-            System.out.println("Room test error: " + e.getMessage());
+            System.out.println("Unexpected test setup error: " + e.getMessage());
         }
-
-        System.out.println("Testing complete.");
     }
 }

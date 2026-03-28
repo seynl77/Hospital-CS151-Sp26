@@ -4,7 +4,7 @@ public class Doctor extends Person {
     private String specialty;
     private boolean vacation = false;
 
-    public Doctor(String name, int id, int age, String gender, int phoneNumber, double salary, String specialty, boolean vacation) {
+    public Doctor(String name, int id, int age, String gender, String phoneNumber, double salary, String specialty, boolean vacation) {
         super(name, id, age, gender, phoneNumber);
         
         this.salary = salary;

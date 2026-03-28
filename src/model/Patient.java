@@ -3,7 +3,6 @@ package src.model;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-
 import src.exceptions.InvalidOperationException;
 
 public class Patient extends Person {
@@ -11,12 +10,12 @@ public class Patient extends Person {
     private boolean admitted;
     private List<Appointment> appointments;
 
-    public Patient(String name, int id, int age, String gender, int phoneNumber, String medicalHistory) {
-        super(name, id, age, gender, phoneNumber);
-        this.medicalHistory = medicalHistory;
-        this.admitted = false;
-        this.appointments = new ArrayList<>();
-    }
+    public Patient(String name, int id, int age, String gender, String phoneNumber, String medicalHistory) {
+    super(name, id, age, gender, phoneNumber);
+    this.medicalHistory = medicalHistory;
+    this.admitted = false;
+    this.appointments = new ArrayList<>();
+}
 
     @Override
     public void displayRole() {

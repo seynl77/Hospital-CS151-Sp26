@@ -144,12 +144,20 @@ System.out.println("Charge added successfully.");
     }
 
     public void setPaid(boolean paid) {
-        isPaid = paid;
+    this.isPaid = paid;
+    if (paid) {
+        this.amount = 0;
+        this.isOverdue = false;
     }
+}
 
     public void setOverdue(boolean overdue) {
+    if (isPaid && overdue) {
+        System.out.println("Paid bill cannot be overdue.");
+    } else {
         isOverdue = overdue;
     }
+}
 
     @Override
     public String toString() {

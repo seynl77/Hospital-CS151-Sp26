@@ -4,9 +4,9 @@ public abstract class Person {
     private int id;
     private int age;
     private String gender;
-    private int phoneNumber;
+    private String phoneNumber;
 
-    public Person(String name, int id, int age, String gender, int phoneNumber) {
+    public Person(String name, int id, int age, String gender, String phoneNumber) {
         this.name = name;
         this.id = id;
         this.age = age;
@@ -48,13 +48,17 @@ public abstract class Person {
         this.gender = gender;
     }
 
-    public int getPhoneNumber() {
+    public String getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(int phoneNumber) {
+    public void setPhoneNumber(String phoneNumber) {
+    if (phoneNumber == null || phoneNumber.trim().isEmpty()) {
+        System.out.println("Invalid phone number.");
+    } else {
         this.phoneNumber = phoneNumber;
     }
+}
 
     @Override
     public String toString() {
