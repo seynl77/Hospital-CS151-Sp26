@@ -7,77 +7,64 @@ public class Bill implements Billable {
     private boolean isPaid;
     private boolean isOverdue;
 
-    public Bill(int billId, double amount) {
-        if (billCount >= MAX_BILLS) {
-            System.out.println("Cannot create more than 100 bills.");
-            this.billId = -1;
-            this.amount = 0;
-            this.isPaid = false;
-            this.isOverdue = false;
-            return;
-        }
+    public Bill(int billId, double amount) throws MaxCapacityException, InvalidAmountException { 
+     if (billCount >= MAX_BILLS) {
+    throw new MaxCapacityException("Cannot create more than 100 bills.");
+}
 
-        billCount++;
+       if (billId <= 0) {
+    throw new InvalidAmountException("Bill ID must be greater than 0.");
+    } else {
+    this.billId = billId;
+}
 
-        if (billId <= 0) {
-            System.out.println("Invalid bill ID. Setting default ID to 1.");
-            this.billId = 1;
-        } else {
-            this.billId = billId;
-        }
+       if (amount < 0) {
+    throw new InvalidAmountException("Amount cannot be negative.");
+    } else {
+    this.amount = amount;
+}
 
-        if (amount < 0) {
-            System.out.println("Invalid amount. Setting amount to 0.");
-            this.amount = 0;
-        } else {
-            this.amount = amount;
-        }
-
-        this.isPaid = false;
+        this.isPaid = (amount == 0);
         this.isOverdue = false;
+        billCount++;
     }
-
-    public void payBill() {
+    public void payBill() throws InvalidOperationException {
         if (isPaid) {
-            System.out.println("Bill is already fully paid.");
-        } else {
-            isPaid = true;
-            amount = 0;
-            System.out.println("Bill paid successfully.");
-        }
+    throw new InvalidOperationException("Bill is already fully paid.");
+} else {
+    isPaid = true;
+    amount = 0;
+    isOverdue = false;
+    System.out.println("Bill paid successfully.");
+}
+}
+
+   public void addCharge(double extra) throws InvalidAmountException, InvalidOperationException {
+       if (extra <= 0) {
+    throw new InvalidAmountException("Charge must be greater than 0.");
+}
+
+if (isPaid) {
+    throw new InvalidOperationException("Cannot add charge to a fully paid bill.");
+}
+
+amount += extra;
+System.out.println("Charge added successfully.");
     }
 
-    public void addCharge(double extra) {
-        if (extra <= 0) {
-            System.out.println("Charge must be greater than 0.");
-            return;
-        }
-
-        if (isPaid) {
-            System.out.println("Cannot add charge to a fully paid bill.");
-            return;
-        }
-
-        amount += extra;
-        System.out.println("Charge added successfully.");
-    }
-
-    public void applyDiscount(double percent) {
+    public void applyDiscount(double percent) throws InvalidAmountException {
         if (percent < 0 || percent > 100) {
-            System.out.println("Discount must be between 0 and 100.");
-            return;
-        }
+    throw new InvalidAmountException("Discount must be between 0 and 100.");
+}
 
         double discountAmount = amount * (percent / 100.0);
         amount -= discountAmount;
 
-        if (amount < 0) {
-            amount = 0;
-        }
-
-        if (amount == 0) {
-            isPaid = true;
-        }
+        if (amount <= 0) {
+    amount = 0;
+    isPaid = true;
+    isOverdue = false;
+}
 
         System.out.println("Discount applied. New balance: $" + amount);
     }
