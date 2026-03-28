@@ -1,7 +1,8 @@
 # Hospital-CS151-Sp26
 ## Overview
 This project simulates a hospital management system using Java. It allows hospital staff to manage patients, doctors, appointments, rooms, and billing efficiently through a console-based interface.
-The system ensures proper scheduling, prevents conflicts, and maintains patient and hospital records systematically.
+The system ensures proper scheduling, prevents conflicts, and maintains patient and hospital records systematically. 
+The system includes integrated billing and room management features as part of the main workflow.
 
 
 ## Design
@@ -33,7 +34,7 @@ Main Menu Options
 - Doctor Management – Add and view doctors.
 - Appointment Management – Create, view, cancel, and complete appointments.
 - Room Management – Add rooms, assign patients, vacate, view info, and mark maintenance.
-- Billing Management – (Optional) Generate bills, pay bills, and add charges.
+- Billing Management – Generate bills, add charges, apply discounts, pay bills, and track bill status.
 - View Hospital Info – Displays general hospital information.
 - Exit – Close the application.
 
@@ -57,5 +58,13 @@ Derek
 - Main class
 
 Serife Aynur Kocdas
-- Bill class
-- Room class
+- Implemented Bill class and integrated billing functionality into the system
+- Implemented Room class and room management features
+- Created Billable interface
+- Implemented custom exceptions:
+  - InvalidAmountException
+  - InvalidOperationException
+  - MaxCapacityException
+- Added BillRoomManualTest.java
+- Contributed to Main.java integration for billing and room functionality
+- Fixed patient phone number input handling (int → String)
