@@ -1,3 +1,9 @@
+package src.tests;
+
+import src.model.Bill;
+import src.model.Patient;
+import src.model.Room;
+
 public class BillRoomManualTest {
     public static void main(String[] args) {
         System.out.println("Running Bill and Room tests...");

@@ -1,3 +1,5 @@
+package src.model;
+
 public class Appointment {
     private int appointmentId;
     private Patient patient;

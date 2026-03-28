@@ -1,3 +1,4 @@
+package src.model;
 public class Patient extends Person {
     private String medicalHistory;
     private boolean admitted;

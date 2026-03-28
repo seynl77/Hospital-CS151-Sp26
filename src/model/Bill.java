@@ -1,3 +1,9 @@
+package src.model;
+
+import src.exceptions.InvalidAmountException;
+import src.exceptions.InvalidOperationException;
+import src.exceptions.MaxCapacityException;
+
 public class Bill implements Billable {
     private static int billCount = 0;
     public static final int MAX_BILLS = 100;

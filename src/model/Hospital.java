@@ -1,3 +1,4 @@
+package src.model;
 import java.util.ArrayList;
 
 public class Hospital {
@@ -39,5 +40,14 @@ public class Hospital {
 
     public String getName() {
         return name;
+    }
+
+    public void hospitalInfo() {
+    System.out.println("Hospital name" + getName() + 
+                        "Total Patients: " + patients.size() +
+                        "Total Doctors: " + doctors.size() +
+                        "Total Rooms: " + rooms.size() +
+                        "Available Rooms: " + 1 +
+                        "Total Appointments: " + appointments.size());
     }
 }

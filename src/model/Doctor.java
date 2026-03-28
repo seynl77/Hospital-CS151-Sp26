@@ -1,3 +1,4 @@
+package src.model;
 public class Doctor extends Person {
     private double salary;
     private String specialty;

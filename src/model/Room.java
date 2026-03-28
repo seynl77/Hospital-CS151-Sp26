@@ -1,3 +1,8 @@
+package src.model;
+
+import src.exceptions.InvalidOperationException;
+import src.exceptions.MaxCapacityException;
+
 public class Room {
     private static int roomCount = 0;
     public static final int MAX_ROOMS = 100;
