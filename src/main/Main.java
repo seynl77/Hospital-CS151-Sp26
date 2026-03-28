@@ -82,7 +82,7 @@ public class Main {
                     System.out.print("Enter gender: ");
                     String gender = getInput();
                     System.out.print("Enter phone number: ");
-                    int phone = Integer.parseInt(getInput());
+                    String phone = getInput();
                     System.out.print("Enter medical history: ");
                     String history = getInput();
 
@@ -178,7 +178,7 @@ public class Main {
                             b = a.getClass().getDeclaredField("bill") != null ? (Bill)a.getClass().getDeclaredField("bill").get(a) : null;
                         } catch (Exception ignored) {}
                         if (b != null) {
-                            System.out.println("Appointment ID: " + a.getAppointmentId() + " | Bill status: " + b.getStatus());
+                            System.out.println("Appointment ID: " + a.getAppointmentId() + " | Bill status: " + b.isPaid());
                         } else {
                             System.out.println("Appointment ID: " + a.getAppointmentId() + " | No bill generated");
                         }
@@ -214,7 +214,7 @@ public class Main {
                     System.out.print("Enter gender: ");
                     String gender = getInput();
                     System.out.print("Enter phone number: ");
-                    int phone = Integer.parseInt(getInput());
+                    String phone = getInput();
                     System.out.print("Enter salary: ");
                     double salary = Double.parseDouble(getInput());
                     System.out.print("Enter specialty: ");
@@ -439,9 +439,6 @@ public class Main {
         int idx = Integer.parseInt(getInput());
         return doctors.get(idx);
     }
-}
-
-    
 
     private static Appointment selectAppointment() {
         for (int i = 0; i < appointments.size(); i++) {
