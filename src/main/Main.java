@@ -26,7 +26,7 @@ public class Main {
                             "6. Hospital Info\n" +
                             "7. Exit\n" +
                             "Choose an option: ");
-            String input = sc.nextLine();
+            String input = getInput();
 
             switch (input) {
                 case "1":
@@ -54,7 +54,7 @@ public class Main {
                     break;
 
                 case "7":
-                    return;
+                    exitProgram();
 
                 default:
                     System.out.println("Invalid option");
@@ -76,27 +76,27 @@ public class Main {
                         "9. Return to Main Menu\n" +
                         "Choose an option: ");
 
-        String input = sc.nextLine();
+        String input = getInput();
 
         switch (input) {
             case "1":
                 System.out.print("Enter patient name: ");
-                String patientName = sc.nextLine();
+                String patientName = getInput();
 
                 System.out.print("Enter patient ID: ");
-                int patientId = Integer.parseInt(sc.nextLine());
+                int patientId = Integer.parseInt(getInput());
 
                 System.out.print("Enter patient age: ");
-                int patientAge = Integer.parseInt(sc.nextLine());
+                int patientAge = Integer.parseInt(getInput());
 
                 System.out.print("Enter patient gender: ");
-                String patientGender = sc.nextLine();
+                String patientGender = getInput();
 
                 System.out.print("Enter patient phone number: ");
-                int patientPhone = Integer.parseInt(sc.nextLine());
+                int patientPhone = Integer.parseInt(getInput());
 
                 System.out.print("Enter medical history: ");
-                String medicalHistory = sc.nextLine();
+                String medicalHistory = getInput();
 
                 currentPatient = new Patient(patientName, patientId, patientAge, patientGender, patientPhone, medicalHistory);
                 hospital.addPatient(currentPatient);
@@ -108,11 +108,11 @@ public class Main {
     }
 
     private static void menuDoctors() {
-
+        String input = getInput();
     }
 
     private static void menuAppointments() {
-
+        String input = getInput();
     }
 
     private static void menuRooms() {
@@ -126,16 +126,20 @@ public class Main {
                         "6. Return to Main Menu\n" +
                         "Choose an option: ");
 
-        String input = sc.nextLine();
+        String input = getInput();
+
+        if (input.equalsIgnoreCase("exit")) {
+            exitProgram();
+        }
 
         switch (input) {
                 case "1":
                 try {
                     System.out.print("Enter room number: ");
-                    int roomNumber = Integer.parseInt(sc.nextLine());
+                    int roomNumber = Integer.parseInt(getInput());
 
                     System.out.print("Enter room type: ");
-                    String roomType = sc.nextLine();
+                    String roomType = getInput();
 
                     currentRoom = new Room(roomNumber, roomType);
                     System.out.println("Room added successfully.");
@@ -197,7 +201,23 @@ public class Main {
     }
 
     private static void viewHospitalInfo() {
+        System.out.println("\nDisplaying hospital info");
         hospital.hospitalInfo();;
+        System.out.println();
+    }
+
+    private static String getInput() {
+        String input = sc.nextLine();
+        if (input.equalsIgnoreCase("exit")) {
+            exitProgram();
+        }
+        return input;
+    }
+
+    private static void exitProgram() {
+        System.out.println("Exiting");
+        sc.close();
+        System.exit(0);
     }
 }
 
