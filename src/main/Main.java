@@ -6,54 +6,130 @@ import src.model.Patient;
 import src.model.Room;
 
 public class Main {
+    private static Scanner sc = new Scanner(System.in);
+    private static Hospital hospital;
+    private static Patient currentPatient;
+    private static Room currentRoom;
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        Hospital hospital = new Hospital("San Jose Hospital");
-        Patient currentPatient = null;
-        Room currentRoom = null;
+        hospital = new Hospital("San Jose Hospital");
+        currentPatient = null;
+        currentRoom = null;
 
         while (true) {
             System.out.print("Hospital Main Menu\n" +
                             "==================\n" +
-                            "1. Add Patient\n" +
-                            "2. Add Doctor\n" +
-                            "3. Create Appointment\n" +
-                            "4. View Patients\n" +
-                            "5. View Doctors\n" +
-                            "6. View Appointments\n" +
-                            "7. Add Room\n" +
-                            "8. Assign Room to Patient\n" +
-                            "9. Vacate Room\n" +
-                            "10. View Room Info\n" +
-                            "11. Mark Room Under Maintenance\n" +
-                            "12. Exit\n" +
+                            "1. Patient Management\n" +
+                            "2. Doctor Management\n" +
+                            "3. Appointments\n" +
+                            "4. Rooms\n" +
+                            "5. Billing\n" +
+                            "6. Hospital Info\n" +
+                            "7. Exit\n" +
                             "Choose an option: ");
             String input = sc.nextLine();
+
             switch (input) {
                 case "1":
-                    System.out.print("Enter patient name: ");
-                    String patientName = sc.nextLine();
+                    menuPatients();
+                    break;
 
-                    System.out.print("Enter patient ID: ");
-                    int patientId = Integer.parseInt(sc.nextLine());
+                case "2":
+                    menuDoctors();
+                    break;
 
-                    System.out.print("Enter patient age: ");
-                    int patientAge = Integer.parseInt(sc.nextLine());
+                case "3":
+                    menuAppointments();
+                    break;
 
-                    System.out.print("Enter patient gender: ");
-                    String patientGender = sc.nextLine();
+                case "4":
+                    menuRooms();
+                    break;
 
-                    System.out.print("Enter patient phone number: ");
-                    int patientPhone = Integer.parseInt(sc.nextLine());
+                case "5":
+                    menuBillings();
+                    break;
 
-                    System.out.print("Enter medical history: ");
-                    String medicalHistory = sc.nextLine();
-
-                    currentPatient = new Patient(patientName, patientId, patientAge, patientGender, patientPhone, medicalHistory);
-                    System.out.println("Patient added successfully.");
+                case "6":
+                    viewHospitalInfo();
                     break;
 
                 case "7":
+                    return;
+
+                default:
+                    System.out.println("Invalid option");
+            }
+        }
+    }
+
+    private static void menuPatients() {
+        System.out.print("Patients Management\n" +
+                        "==================\n" +
+                        "1. Add Patient\n" +
+                        "2. View All Patients\n" +
+                        "3. View Patient Details\n" +
+                        "4. Admit Patient\n" +
+                        "5. Discharge Patient\n" +
+                        "6. Update Medical History\n" +
+                        "7. View Patient Bills\n" +
+                        "8. View Patient Appointments\n" +
+                        "9. Return to Main Menu\n" +
+                        "Choose an option: ");
+
+        String input = sc.nextLine();
+
+        switch (input) {
+            case "1":
+                System.out.print("Enter patient name: ");
+                String patientName = sc.nextLine();
+
+                System.out.print("Enter patient ID: ");
+                int patientId = Integer.parseInt(sc.nextLine());
+
+                System.out.print("Enter patient age: ");
+                int patientAge = Integer.parseInt(sc.nextLine());
+
+                System.out.print("Enter patient gender: ");
+                String patientGender = sc.nextLine();
+
+                System.out.print("Enter patient phone number: ");
+                int patientPhone = Integer.parseInt(sc.nextLine());
+
+                System.out.print("Enter medical history: ");
+                String medicalHistory = sc.nextLine();
+
+                currentPatient = new Patient(patientName, patientId, patientAge, patientGender, patientPhone, medicalHistory);
+                hospital.addPatient(currentPatient);
+                System.out.println("Patient added successfully.");
+                break;
+        }
+
+    
+    }
+
+    private static void menuDoctors() {
+
+    }
+
+    private static void menuAppointments() {
+
+    }
+
+    private static void menuRooms() {
+        System.out.print("Rooms Management\n" +
+                        "==================\n" +
+                        "1. Add Room\n" +
+                        "2. Assign Room to Patient\n" +
+                        "3. Vacate Room\n" +
+                        "4. View Room Info\n" +
+                        "5. Mark Room Under Maintenance\n" +
+                        "6. Return to Main Menu\n" +
+                        "Choose an option: ");
+
+        String input = sc.nextLine();
+
+        switch (input) {
+                case "1":
                 try {
                     System.out.print("Enter room number: ");
                     int roomNumber = Integer.parseInt(sc.nextLine());
@@ -68,7 +144,7 @@ public class Main {
                 }
                 break;
 
-                case "8":
+                case "2":
                 if (currentRoom == null) {
                     System.out.println("No room exists yet. Please add a room first.");
                 } else if (currentPatient == null) {
@@ -82,7 +158,7 @@ public class Main {
                 }
                 break;
 
-                case "9":
+                case "3":
                     if (currentRoom == null) {
                         System.out.println("No room exists yet.");
                     } else {
@@ -90,7 +166,7 @@ public class Main {
                     }
                     break;
 
-                case "10":
+                case "4":
                     if (currentRoom == null) {
                         System.out.println("No room exists yet.");
                     } else {
@@ -98,7 +174,7 @@ public class Main {
                     }
                     break;
 
-                case "11":
+                case "5":
                 if (currentRoom == null) {
                     System.out.println("No room exists yet.");
                 } else {
@@ -110,14 +186,18 @@ public class Main {
                 }
                 break;
 
-                case "12":
-                    System.out.println("Exiting system. Goodbye.");
-                    sc.close();
+                case "6":
+                    System.out.println("Returning to main menu");
                     return;
-
-                default:
-                    System.out.println("Option not connected yet.");
-            }
         }
     }
+
+    private static void menuBillings() {
+
+    }
+
+    private static void viewHospitalInfo() {
+        hospital.hospitalInfo();;
+    }
 }
+
