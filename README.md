@@ -47,6 +47,7 @@ Elaine
 - Patient class
 - Appointment class
 - Initial repository setup
+- Appointment funtion in Main Class
 - UML
 
 Andrew
