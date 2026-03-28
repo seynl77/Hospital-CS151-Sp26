@@ -1,6 +1,7 @@
 package src.main;
 import java.util.Scanner;
 
+import src.exceptions.MaxCapacityException;
 import src.model.Hospital;
 import src.model.Patient;
 import src.model.Room;
@@ -10,6 +11,7 @@ public class Main {
     private static Hospital hospital;
     private static Patient currentPatient;
     private static Room currentRoom;
+
     public static void main(String[] args) {
         hospital = new Hospital("San Jose Hospital");
         currentPatient = null;
@@ -99,11 +101,16 @@ public class Main {
                 String medicalHistory = getInput();
 
                 currentPatient = new Patient(patientName, patientId, patientAge, patientGender, patientPhone, medicalHistory);
-                hospital.addPatient(currentPatient);
+
+                try {
+                    hospital.addPatient(currentPatient);
+                }
+                catch (MaxCapacityException e){
+                    System.out.println("Error: " + e.getMessage()) ;
+                }
                 System.out.println("Patient added successfully.");
                 break;
         }
-
     
     }
 
@@ -127,10 +134,6 @@ public class Main {
                         "Choose an option: ");
 
         String input = getInput();
-
-        if (input.equalsIgnoreCase("exit")) {
-            exitProgram();
-        }
 
         switch (input) {
                 case "1":
@@ -193,6 +196,10 @@ public class Main {
                 case "6":
                     System.out.println("Returning to main menu");
                     return;
+
+                default:
+                    System.out.println("Invalid input");
+                    break;
         }
     }
 
