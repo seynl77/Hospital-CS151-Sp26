@@ -66,6 +66,63 @@ public class Hospital {
         return name;
     }
 
+    public void displayAllPatients() {
+        if (patients.isEmpty()) {
+            System.out.println("No patients registered.");
+            return;
+        }
+        System.out.println("\nDisplaying all patients");
+        for (Patient p : patients) {
+            p.viewPatientStatus();
+            System.out.println();
+        }
+    }
+ 
+    public void displayAllDoctors() {
+        if (doctors.isEmpty()) {
+            System.out.println("No doctors registered.");
+            return;
+        }
+        System.out.println("\nDisplaying all doctors");
+        for (Doctor d : doctors) {
+            System.out.println(d.getName());
+        }
+    }
+ 
+    public void displayAllAppointments() {
+        if (appointments.isEmpty()) {
+            System.out.println("No appointments on record.");
+            return;
+        }
+        System.out.println("\nDisplaying all appointments");
+        for (Appointment a : appointments) {
+            a.displayInfo();
+            System.out.println();
+        }
+    }
+ 
+    public void displayAllRooms() {
+        if (rooms.isEmpty()) {
+            System.out.println("No rooms added.");
+            return;
+        }
+        System.out.println("\nDisplaying all rooms");
+        for (Room r : rooms) {
+            System.out.println(r);
+        }
+    }
+ 
+    public void displayAllBills() {
+        if (bills.isEmpty()) {
+            System.out.println("No bills on record.");
+            return;
+        }
+        System.out.println("\nDisplaying all bills");
+        for (Bill b : bills) {
+            System.out.println(b);
+        }
+    }
+
     public void hospitalInfo() {
     System.out.println("Hospital name: " + getName() + 
                         ", Total Patients: " + patients.size() +

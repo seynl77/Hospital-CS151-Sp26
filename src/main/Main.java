@@ -101,6 +101,7 @@ public class Main {
                 String medicalHistory = getInput();
 
                 currentPatient = new Patient(patientName, patientId, patientAge, patientGender, patientPhone, medicalHistory);
+
                 try {
                     hospital.addPatient(currentPatient);
                 }
@@ -110,7 +111,6 @@ public class Main {
                 System.out.println("Patient added successfully.");
                 break;
         }
-
     
     }
 
