@@ -49,6 +49,7 @@ public class Main {
         break;
 
     case "7":
+    try {
         System.out.print("Enter room number: ");
         int roomNumber = Integer.parseInt(sc.nextLine());
 
@@ -57,17 +58,24 @@ public class Main {
 
         currentRoom = new Room(roomNumber, roomType);
         System.out.println("Room added successfully.");
-        break;
+    } catch (Exception e) {
+        System.out.println("Error: " + e.getMessage());
+    }
+    break;
 
     case "8":
-        if (currentRoom == null) {
-            System.out.println("No room exists yet. Please add a room first.");
-        } else if (currentPatient == null) {
-            System.out.println("No patient exists yet. Please add a patient first.");
-        } else {
+    if (currentRoom == null) {
+        System.out.println("No room exists yet. Please add a room first.");
+    } else if (currentPatient == null) {
+        System.out.println("No patient exists yet. Please add a patient first.");
+    } else {
+        try {
             currentRoom.assignPatient(currentPatient);
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
         }
-        break;
+    }
+    break;
 
     case "9":
         if (currentRoom == null) {
@@ -86,12 +94,16 @@ public class Main {
         break;
 
     case "11":
-        if (currentRoom == null) {
-            System.out.println("No room exists yet.");
-        } else {
+    if (currentRoom == null) {
+        System.out.println("No room exists yet.");
+    } else {
+        try {
             currentRoom.markUnderMaintenance();
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
         }
-        break;
+    }
+    break;
 
     case "12":
         System.out.println("Exiting system. Goodbye.");

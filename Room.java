@@ -8,50 +8,42 @@ public class Room {
     private boolean underMaintenance;
     private Patient assignedPatient;
 
-    public Room(int roomNumber, String type) {
+    public Room(int roomNumber, String type) throws MaxCapacityException, InvalidOperationException {
         if (roomCount >= MAX_ROOMS) {
-            System.out.println("Cannot create more than 100 rooms.");
-            this.roomNumber = -1;
-            this.type = "Invalid";
-            this.isOccupied = false;
-            this.underMaintenance = false;
-            this.assignedPatient = null;
-            return;
+            throw new MaxCapacityException("Cannot create more than 100 rooms.");
         }
-
-        roomCount++;
 
         if (roomNumber <= 0) {
-            System.out.println("Invalid room number. Setting default room number to 1.");
-            this.roomNumber = 1;
-        } else {
-            this.roomNumber = roomNumber;
+            throw new InvalidOperationException("Room number must be positive.");
         }
+        this.roomNumber = roomNumber;
 
         if (type == null || type.trim().isEmpty()) {
-            System.out.println("Invalid room type. Setting type to General.");
-            this.type = "General";
-        } else {
-            this.type = type;
+            throw new InvalidOperationException("Room type cannot be empty.");
         }
+        this.type = type;
 
         this.isOccupied = false;
         this.underMaintenance = false;
         this.assignedPatient = null;
+
+        roomCount++;
     }
 
-    public void assignPatient(Patient patient) {
+    public void assignPatient(Patient patient) throws InvalidOperationException {
         if (underMaintenance) {
-            System.out.println("Room is under maintenance and cannot be assigned.");
-        } else if (isOccupied) {
-            System.out.println("Room already occupied.");
-        } else if (patient == null) {
-            System.out.println("Cannot assign a null patient.");
-        } else {
-            assignedPatient = patient;
-            isOccupied = true;
-            System.out.println("Patient assigned to room " + roomNumber + ".");
+            throw new InvalidOperationException("Room is under maintenance.");
         }
+        if (isOccupied) {
+            throw new InvalidOperationException("Room already occupied.");
+        }
+        if (patient == null) {
+            throw new InvalidOperationException("Invalid patient.");
+        }
+
+        assignedPatient = patient;
+        isOccupied = true;
+        System.out.println("Patient assigned to room " + roomNumber + ".");
     }
 
     public void vacateRoom() {
@@ -64,28 +56,31 @@ public class Room {
         }
     }
 
-    public void transferPatient(Room newRoom) {
+    public void transferPatient(Room newRoom) throws InvalidOperationException {
         if (assignedPatient == null) {
-            System.out.println("No patient to transfer.");
-        } else if (newRoom == null) {
-            System.out.println("Target room does not exist.");
-        } else if (!newRoom.isAvailable()) {
-            System.out.println("Target room is not available.");
-        } else {
-            newRoom.assignPatient(assignedPatient);
-            assignedPatient = null;
-            isOccupied = false;
-            System.out.println("Patient transferred to room " + newRoom.getRoomNumber() + ".");
+            throw new InvalidOperationException("No patient to transfer.");
         }
+        if (newRoom == null) {
+            throw new InvalidOperationException("Target room does not exist.");
+        }
+        if (!newRoom.isAvailable()) {
+            throw new InvalidOperationException("Target room is not available.");
+        }
+
+        Patient temp = assignedPatient;
+        newRoom.assignPatient(temp);
+        assignedPatient = null;
+        isOccupied = false;
+
+        System.out.println("Patient transferred to room " + newRoom.getRoomNumber() + ".");
     }
 
-    public void markUnderMaintenance() {
+    public void markUnderMaintenance() throws InvalidOperationException {
         if (isOccupied) {
-            System.out.println("Cannot put occupied room under maintenance.");
-        } else {
-            underMaintenance = true;
-            System.out.println("Room " + roomNumber + " is now under maintenance.");
+            throw new InvalidOperationException("Cannot put occupied room under maintenance.");
         }
+        underMaintenance = true;
+        System.out.println("Room " + roomNumber + " is now under maintenance.");
     }
 
     public void releaseMaintenance() {
@@ -163,14 +158,6 @@ public class Room {
         } else {
             System.out.println("Invalid room type.");
         }
-    }
-
-    public void setOccupied(boolean occupied) {
-        isOccupied = occupied;
-    }
-
-    public void setUnderMaintenance(boolean underMaintenance) {
-        this.underMaintenance = underMaintenance;
     }
 
     @Override
