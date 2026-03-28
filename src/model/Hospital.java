@@ -47,7 +47,6 @@ public class Hospital {
                         ", Total Patients: " + patients.size() +
                         ", Total Doctors: " + doctors.size() +
                         ", Total Rooms: " + rooms.size() +
-                        ", Available Rooms: " + 1 +
                         ", Total Appointments: " + appointments.size());
     }
 }
