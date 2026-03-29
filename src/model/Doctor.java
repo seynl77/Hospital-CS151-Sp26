@@ -46,7 +46,7 @@ public class Doctor extends Person {
     }
 
     public void salaryBonus() {
-        salary += salary*1.1;
+        salary = salary*1.1;
         System.out.println("New salary is: " + salary);
     }
 
