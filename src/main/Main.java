@@ -84,14 +84,7 @@ public class Main {
                 break;
 
             case "2":
-                if (hospital.getPatients().isEmpty()) {
-                    System.out.println("No patients added.");
-                } else {
-                    for (Patient p : hospital.getPatients()) {
-                        p.viewPatientStatus();
-                        System.out.println("------------------");
-                    }
-                }
+                hospital.displayAllPatients();
                 break;
 
             case "3":
@@ -184,7 +177,9 @@ public class Main {
             "==================\n" +
             "1. Add Doctor\n" +
             "2. View All Doctors\n" +
-            "3. Return to Main Menu\n" +
+            "3. Apply Salary BOnus of 10%\n" + 
+            "4. Display a Doctors Summary\n" +
+            "5. Return to Main Menu\n" +
             "Choose an option: "
         );
         String input = getInput();
@@ -214,16 +209,28 @@ public class Main {
                 break;
 
             case "2":
-                if (hospital.getDoctors().isEmpty()) {
-                    System.out.println("No doctors added.");
-                } else {
-                    for (Doctor d : hospital.getDoctors()) {
-                        d.displayRole();
-                    }
-                }
+                hospital.displayAllDoctors();
                 break;
 
-            case "3": return;
+            case "3":
+                for (int i = 0; i < hospital.getDoctors().size(); i++) {
+                    System.out.println(i + ": " + hospital.getDoctors().get(i).getName());
+                }
+                System.out.print("Select doctor index: ");
+                int idx = Integer.parseInt(getInput());
+                hospital.getDoctors().get(idx).salaryBonus();
+                break;
+
+            case "4":
+                for (int i = 0; i < hospital.getDoctors().size(); i++) {
+                    System.out.println(i + ": " + hospital.getDoctors().get(i).getName());
+                }
+                System.out.print("Select doctor index: ");
+                int idxx = Integer.parseInt(getInput());
+                hospital.getDoctors().get(idxx).displayDoctor();
+                break;
+
+            case "5": return;
             default: System.out.println("Invalid option");
         }
     }
@@ -266,14 +273,7 @@ public class Main {
                 break;
 
             case "2":
-                if (hospital.getAppointments().isEmpty()) {
-                    System.out.println("No appointments scheduled.");
-                } else {
-                    for (Appointment a : hospital.getAppointments()) {
-                        a.displayInfo();
-                        System.out.println("------------------");
-                    }
-                }
+                hospital.displayAllAppointments();
                 break;
 
             case "3":
@@ -320,7 +320,8 @@ public class Main {
             "3. Vacate Room\n" +
             "4. View Room Info\n" +
             "5. Mark Room Under Maintenance\n" +
-            "6. Return to Main Menu\n" +
+            "6. Display All Rooms\n" +
+            "7. Return to Main Menu\n" +
             "Choose an option: "
         );
         String input = getInput();
@@ -388,13 +389,17 @@ public class Main {
                 }
                 break;
 
-                case "6":
-                    System.out.println("Returning to main menu");
-                    return;
+            case "6":
+                hospital.displayAllRooms();
+                break;
 
-                default:
-                    System.out.println("Invalid input");
-                    break;
+            case "7":
+                System.out.println("Returning to main menu");
+                return;
+
+            default:
+                System.out.println("Invalid input");
+                break;
         }
     }
 
@@ -407,7 +412,8 @@ public class Main {
             "2. Pay Bill\n" +
             "3. Add Charge\n" +
             "4. Apply Discount\n" +
-            "5. Return to Main Menu\n" +
+            "5. Display All Bills\n" +
+            "6. Return to Main Menu\n" +
             "Choose an option: "
         );
 
@@ -491,6 +497,10 @@ public class Main {
                 break;
 
             case "5":
+                hospital.displayAllBills();
+                break;
+
+            case "6":
                 return;
 
             default:
@@ -510,8 +520,8 @@ public class Main {
 
     private static Doctor selectDoctor() {
         for (int i = 0; i < hospital.getDoctors().size(); i++) {
-            if(hospital.getDoctors().get(i).getVacation() == true) {
-                System.out.println(i + ": " + hospital.getDoctors().get(i).getName() + " on vacation.");
+            if(!hospital.getDoctors().get(i).isAvailable()) {
+                System.out.println(i + ": " + hospital.getDoctors().get(i).getName() + " is unavailable.");
             } else {
                 System.out.println(i + ": " + hospital.getDoctors().get(i).getName());
             }

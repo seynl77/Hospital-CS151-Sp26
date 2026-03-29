@@ -41,6 +41,15 @@ public class Doctor extends Person {
         return vacation;
     }
 
+    public boolean isAvailable() {
+        return !vacation;
+    }
+
+    public void salaryBonus() {
+        salary += salary*1.1;
+        System.out.println("New salary is: " + salary);
+    }
+
     public void displayDoctor() {
         super.displayPerson();
         System.out.println("Salary: " + salary);
