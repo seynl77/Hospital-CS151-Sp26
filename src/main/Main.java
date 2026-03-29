@@ -177,7 +177,7 @@ public class Main {
             "==================\n" +
             "1. Add Doctor\n" +
             "2. View All Doctors\n" +
-            "3. Apply Salary BOnus of 10%\n" + 
+            "3. Apply Salary Bonus\n" + 
             "4. Display a Doctors Summary\n" +
             "5. Return to Main Menu\n" +
             "Choose an option: "
