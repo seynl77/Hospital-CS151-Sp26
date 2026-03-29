@@ -2,8 +2,6 @@ package src.main;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.List;
 import src.exceptions.InvalidOperationException;
 import src.model.Appointment;
 import src.model.Bill;
@@ -14,13 +12,7 @@ import src.model.Room;
 
 public class Main {
     private static java.util.Scanner sc = new java.util.Scanner(System.in);
-
     private static Hospital hospital = new Hospital("San Jose Hospital");
-    private static List<Patient> patients = new ArrayList<>();
-    private static List<Doctor> doctors = new ArrayList<>();
-    private static List<Appointment> appointments = new ArrayList<>();
-    private static List<Room> rooms = new ArrayList<>();
-
 
     public static void main(String[] args) {
         while (true) {
@@ -46,7 +38,7 @@ public class Main {
                 case "5": menuBillings(); break;
                 case "6": viewHospitalInfo(); break;
                 case "7": exitProgram(); break;
-                default: System.out.println("Invalid option");
+                default: System.out.println("Invalid Option");
             }
         }
     }
@@ -85,18 +77,17 @@ public class Main {
                     String history = getInput();
 
                     Patient p = new Patient(name, id, age, gender, phone, history);
-                    patients.add(p);
-                    System.out.println("Patient added successfully.");
+                    hospital.addPatient(p);
                 } catch (Exception e) {
                     System.out.println("Error: " + e.getMessage());
                 }
                 break;
 
             case "2":
-                if (patients.isEmpty()) {
+                if (hospital.getPatients().isEmpty()) {
                     System.out.println("No patients added.");
                 } else {
-                    for (Patient p : patients) {
+                    for (Patient p : hospital.getPatients()) {
                         p.viewPatientStatus();
                         System.out.println("------------------");
                     }
@@ -104,7 +95,7 @@ public class Main {
                 break;
 
             case "3":
-                if (patients.isEmpty()) {
+                if (hospital.getPatients().isEmpty()) {
                     System.out.println("No patients available.");
                     break;
                 }
@@ -117,7 +108,7 @@ public class Main {
                 break;
 
             case "4":
-                if (patients.isEmpty()) {
+                if (hospital.getPatients().isEmpty()) {
                     System.out.println("No patients available.");
                     break;
                 }
@@ -130,7 +121,7 @@ public class Main {
                 break;
 
             case "5":
-                if (patients.isEmpty()) {
+                if (hospital.getPatients().isEmpty()) {
                     System.out.println("No patients available.");
                     break;
                 }
@@ -147,13 +138,13 @@ public class Main {
 
             case "6":
                 // View patient appointments
-                if (patients.isEmpty()) {
+                if (hospital.getPatients().isEmpty()) {
                     System.out.println("No patients available.");
                     break;
                 }
                 Patient pAppt = selectPatient();
                 System.out.println("Appointments for " + pAppt.getName() + ":");
-                for (Appointment a : appointments) {
+                for (Appointment a : hospital.getAppointments()) {
                     if (a.getPatient() == pAppt) {
                         a.displayInfo();
                         System.out.println("------------------");
@@ -163,13 +154,13 @@ public class Main {
 
             case "7":
                 // View patient bills
-                if (patients.isEmpty()) {
+                if (hospital.getPatients().isEmpty()) {
                     System.out.println("No patients available.");
                     break;
                 }
                 Patient pBill = selectPatient();
                 System.out.println("Bills for " + pBill.getName() + ":");
-                for (Appointment a : appointments) {
+                for (Appointment a : hospital.getAppointments()) {
                     if (a.getPatient() == pBill) {
                         Bill b = a.getBill();
                         if (b != null) {
@@ -216,18 +207,17 @@ public class Main {
                     String specialty = getInput();
 
                     Doctor d = new Doctor(name, id, age, gender, phone, salary, specialty, false);
-                    doctors.add(d);
-                    System.out.println("Doctor added successfully.");
+                    hospital.addDoctor(d);
                 } catch (Exception e) {
                     System.out.println("Error: " + e.getMessage());
                 }
                 break;
 
             case "2":
-                if (doctors.isEmpty()) {
+                if (hospital.getDoctors().isEmpty()) {
                     System.out.println("No doctors added.");
                 } else {
-                    for (Doctor d : doctors) {
+                    for (Doctor d : hospital.getDoctors()) {
                         d.displayRole();
                     }
                 }
@@ -253,7 +243,7 @@ public class Main {
         String input = getInput();
         switch (input) {
             case "1":
-                if (patients.isEmpty() || doctors.isEmpty()) {
+                if (hospital.getPatients().isEmpty() || hospital.getDoctors().isEmpty()) {
                     System.out.println("Need at least one patient and one doctor.");
                     break;
                 }
@@ -268,19 +258,18 @@ public class Main {
                     LocalTime time = LocalTime.parse(getInput());
 
                     Appointment a = new Appointment(id, p, d, date, time);
-                    appointments.add(a);
+                    hospital.addAppointment(a);
                     p.scheduleAppointment(a);
-                    System.out.println("Appointment created successfully.");
                 } catch (Exception e) {
                     System.out.println("Error: " + e.getMessage());
                 }
                 break;
 
             case "2":
-                if (appointments.isEmpty()) {
+                if (hospital.getAppointments().isEmpty()) {
                     System.out.println("No appointments scheduled.");
                 } else {
-                    for (Appointment a : appointments) {
+                    for (Appointment a : hospital.getAppointments()) {
                         a.displayInfo();
                         System.out.println("------------------");
                     }
@@ -288,7 +277,7 @@ public class Main {
                 break;
 
             case "3":
-                if (appointments.isEmpty()) {
+                if (hospital.getAppointments().isEmpty()) {
                     System.out.println("No appointments scheduled.");
                     break;
                 }
@@ -302,7 +291,7 @@ public class Main {
                 break;
 
             case "4":
-                if (appointments.isEmpty()) {
+                if (hospital.getAppointments().isEmpty()) {
                     System.out.println("No appointments scheduled.");
                     break;
                 }
@@ -311,7 +300,6 @@ public class Main {
                     System.out.print("Enter base charge: ");
                     double charge = Double.parseDouble(getInput());
                     a.completeAppointment(charge);
-                    System.out.println("Appointment completed and bill generated.");
                 } catch (Exception e) {
                     System.out.println("Error: " + e.getMessage());
                 }
@@ -344,15 +332,14 @@ public class Main {
                     System.out.print("Enter room type: ");
                     String type = getInput();
                     Room r = new Room(roomNumber, type);
-                    rooms.add(r);
-                    System.out.println("Room added successfully.");
+                    hospital.addRoom(r);
                 } catch (Exception e) {
                     System.out.println("Error: " + e.getMessage());
                 }
                 break;
 
             case "2":
-                if (rooms.isEmpty() || patients.isEmpty()) {
+                if (hospital.getRooms().isEmpty() || hospital.getPatients().isEmpty()) {
                     System.out.println("No rooms or patients available.");
                     break;
                 }
@@ -367,7 +354,7 @@ public class Main {
                 break;
 
             case "3":
-                if (rooms.isEmpty()) {
+                if (hospital.getRooms().isEmpty()) {
                     System.out.println("No rooms available.");
                     break;
                 }
@@ -377,18 +364,18 @@ public class Main {
                 break;
 
             case "4":
-                if (rooms.isEmpty()) {
+                if (hospital.getRooms().isEmpty()) {
                     System.out.println("No rooms available.");
                     break;
                 }
-                for (Room room : rooms) {
+                for (Room room : hospital.getRooms()) {
                     room.displayRoomInfo();
                     System.out.println("------------------");
                 }
                 break;
 
             case "5":
-                if (rooms.isEmpty()) {
+                if (hospital.getRooms().isEmpty()) {
                     System.out.println("No rooms available.");
                     break;
                 }
@@ -413,139 +400,143 @@ public class Main {
 
     // -------------------- Billing Menu --------------------
     private static void menuBillings() {
-    System.out.print(
-        "Billing Management\n" +
-        "==================\n" +
-        "1. View Bill for Appointment\n" +
-        "2. Pay Bill\n" +
-        "3. Add Charge\n" +
-        "4. Apply Discount\n" +
-        "5. Return to Main Menu\n" +
-        "Choose an option: "
-    );
+        System.out.print(
+            "Billing Management\n" +
+            "==================\n" +
+            "1. View Bill for Appointment\n" +
+            "2. Pay Bill\n" +
+            "3. Add Charge\n" +
+            "4. Apply Discount\n" +
+            "5. Return to Main Menu\n" +
+            "Choose an option: "
+        );
 
-    String input = getInput();
+        String input = getInput();
 
-    switch (input) {
-        case "1":
-            if (appointments.isEmpty()) {
-                System.out.println("No appointments available.");
-                break;
-            }
-            try {
-                Appointment a = selectAppointment();
-                Bill b = a.getBill();
-                if (b == null) {
-                    System.out.println("No bill has been generated for this appointment.");
-                } else {
-                    b.displayBill();
+        switch (input) {
+            case "1":
+                if (hospital.getAppointments().isEmpty()) {
+                    System.out.println("No appointments available.");
+                    break;
                 }
-            } catch (Exception e) {
-                System.out.println("Error: " + e.getMessage());
-            }
-            break;
-
-        case "2":
-            if (appointments.isEmpty()) {
-                System.out.println("No appointments available.");
-                break;
-            }
-            try {
-                Appointment a = selectAppointment();
-                Bill b = a.getBill();
-                if (b == null) {
-                    System.out.println("No bill has been generated for this appointment.");
-                } else {
-                    b.payBill();
+                try {
+                    Appointment a = selectAppointment();
+                    Bill b = a.getBill();
+                    if (b == null) {
+                        System.out.println("No bill has been generated for this appointment.");
+                    } else {
+                        b.displayBill();
+                    }
+                } catch (Exception e) {
+                    System.out.println("Error: " + e.getMessage());
                 }
-            } catch (Exception e) {
-                System.out.println("Error: " + e.getMessage());
-            }
-            break;
-
-        case "3":
-            if (appointments.isEmpty()) {
-                System.out.println("No appointments available.");
                 break;
-            }
-            try {
-                Appointment a = selectAppointment();
-                Bill b = a.getBill();
-                if (b == null) {
-                    System.out.println("No bill has been generated for this appointment.");
-                } else {
-                    System.out.print("Enter additional charge: ");
-                    double extra = Double.parseDouble(getInput());
-                    b.addCharge(extra);
-                }
-            } catch (Exception e) {
-                System.out.println("Error: " + e.getMessage());
-            }
-            break;
 
-        case "4":
-            if (appointments.isEmpty()) {
-                System.out.println("No appointments available.");
+            case "2":
+                if (hospital.getAppointments().isEmpty()) {
+                    System.out.println("No appointments available.");
+                    break;
+                }
+                try {
+                    Appointment a = selectAppointment();
+                    Bill b = a.getBill();
+                    if (b == null) {
+                        System.out.println("No bill has been generated for this appointment.");
+                    } else {
+                        b.payBill();
+                    }
+                } catch (Exception e) {
+                    System.out.println("Error: " + e.getMessage());
+                }
                 break;
-            }
-            try {
-                Appointment a = selectAppointment();
-                Bill b = a.getBill();
-                if (b == null) {
-                    System.out.println("No bill has been generated for this appointment.");
-                } else {
-                    System.out.print("Enter discount percent: ");
-                    double percent = Double.parseDouble(getInput());
-                    b.applyDiscount(percent);
+
+            case "3":
+                if (hospital.getAppointments().isEmpty()) {
+                    System.out.println("No appointments available.");
+                    break;
                 }
-            } catch (Exception e) {
-                System.out.println("Error: " + e.getMessage());
-            }
-            break;
+                try {
+                    Appointment a = selectAppointment();
+                    Bill b = a.getBill();
+                    if (b == null) {
+                        System.out.println("No bill has been generated for this appointment.");
+                    } else {
+                        System.out.print("Enter additional charge: ");
+                        double extra = Double.parseDouble(getInput());
+                        b.addCharge(extra);
+                    }
+                } catch (Exception e) {
+                    System.out.println("Error: " + e.getMessage());
+                }
+                break;
 
-        case "5":
-            return;
+            case "4":
+                if (hospital.getAppointments().isEmpty()) {
+                    System.out.println("No appointments available.");
+                    break;
+                }
+                try {
+                    Appointment a = selectAppointment();
+                    Bill b = a.getBill();
+                    if (b == null) {
+                        System.out.println("No bill has been generated for this appointment.");
+                    } else {
+                        System.out.print("Enter discount percent: ");
+                        double percent = Double.parseDouble(getInput());
+                        b.applyDiscount(percent);
+                    }
+                } catch (Exception e) {
+                    System.out.println("Error: " + e.getMessage());
+                }
+                break;
 
-        default:
-            System.out.println("Invalid option");
+            case "5":
+                return;
+
+            default:
+                System.out.println("Invalid option");
+        }
     }
-}
 
     // -------------------- Utility Methods --------------------
     private static Patient selectPatient() {
-        for (int i = 0; i < patients.size(); i++) {
-            System.out.println(i + ": " + patients.get(i).getName());
+        for (int i = 0; i < hospital.getPatients().size(); i++) {
+            System.out.println(i + ": " + hospital.getPatients().get(i).getName());
         }
         System.out.print("Select patient index: ");
         int idx = Integer.parseInt(getInput());
-        return patients.get(idx);
+        return hospital.getPatients().get(idx);
     }
 
     private static Doctor selectDoctor() {
-        for (int i = 0; i < doctors.size(); i++) {
-            System.out.println(i + ": " + doctors.get(i).getName());
+        for (int i = 0; i < hospital.getDoctors().size(); i++) {
+            if(hospital.getDoctors().get(i).getVacation() == true) {
+                System.out.println(i + ": " + hospital.getDoctors().get(i).getName() + " on vacation.");
+            } else {
+                System.out.println(i + ": " + hospital.getDoctors().get(i).getName());
+            }
         }
         System.out.print("Select doctor index: ");
         int idx = Integer.parseInt(getInput());
-        return doctors.get(idx);
+        return hospital.getDoctors().get(idx);
     }
 
     private static Appointment selectAppointment() {
-        for (int i = 0; i < appointments.size(); i++) {
-            System.out.println(i + ": Appointment ID " + appointments.get(i).getAppointmentId());
+        for (int i = 0; i < hospital.getAppointments().size(); i++) {
+            System.out.println(i + ": Appointment ID " + hospital.getAppointments().get(i).getAppointmentId());
         }
         System.out.print("Select appointment index: ");
         int idx = Integer.parseInt(getInput());
-        return appointments.get(idx);
+        return hospital.getAppointments().get(idx);
     }
 
     private static Room selectRoom() {
-        for (int i = 0; i < rooms.size(); i++) {
-            System.out.println(i + ": Room " + rooms.get(i).getRoomNumber());
+        for (int i = 0; i < hospital.getRooms().size(); i++) {
+            System.out.println(i + ": Room " + hospital.getRooms().get(i).getRoomNumber());
         }
         System.out.print("Select room index: ");
         int idx = Integer.parseInt(getInput());
-        return rooms.get(idx);
+        return hospital.getRooms().get(idx);
     }
 
     private static void viewHospitalInfo() {

@@ -1,4 +1,5 @@
 package src.model;
+
 public abstract class Person {
     private String name;
     private int id;
@@ -53,20 +54,27 @@ public abstract class Person {
     }
 
     public void setPhoneNumber(String phoneNumber) {
-    if (phoneNumber == null || phoneNumber.trim().isEmpty()) {
-        System.out.println("Invalid phone number.");
-    } else {
-        this.phoneNumber = phoneNumber;
+        if (phoneNumber == null || phoneNumber.trim().isEmpty()) {
+            System.out.println("Invalid phone number.");
+        } else {
+            this.phoneNumber = phoneNumber;
+        }
     }
-}
+
+    public void displayPerson() {
+        System.out.println("Name: " + name);
+        System.out.println("Id: " + id);
+        System.out.println("Age: " + age);
+        System.out.println("Gender: " + gender);
+        System.out.println("Phone number: " + phoneNumber);
+    }
 
     @Override
     public String toString() {
-        return "name: " + name + "\n" +
-               "id: " + id + "\n" +
-               "age: " + age + "\n" +
-               "gender: " + gender + "\n" +
-               "phone number: " + phoneNumber + "\n";
+        return "Name: " + name + "\n" +
+            "Id: " + id + "\n" +
+            "Age: " + age + "\n" +
+            "Gender: " + gender + "\n" +
+            "Phone number: " + phoneNumber + "\n";
     }
-
 }

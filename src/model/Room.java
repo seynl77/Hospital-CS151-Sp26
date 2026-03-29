@@ -4,9 +4,9 @@ import src.exceptions.InvalidOperationException;
 import src.exceptions.MaxCapacityException;
 
 public class Room {
-    private static int roomCount = 0;
     public static final int MAX_ROOMS = 100;
 
+    private static int roomCount = 0;
     private int roomNumber;
     private boolean isOccupied;
     private String type;
@@ -27,11 +27,9 @@ public class Room {
             throw new InvalidOperationException("Room type cannot be empty.");
         }
         this.type = type;
-
         this.isOccupied = false;
         this.underMaintenance = false;
         this.assignedPatient = null;
-
         roomCount++;
     }
 
@@ -112,19 +110,6 @@ public class Room {
         }
     }
 
-    public void displayRoomInfo() {
-        System.out.println("Room Number: " + roomNumber);
-        System.out.println("Type: " + type);
-        System.out.println("Occupied: " + isOccupied);
-        System.out.println("Under Maintenance: " + underMaintenance);
-
-        if (assignedPatient != null) {
-            System.out.println("Assigned Patient: " + assignedPatient.getName());
-        } else {
-            System.out.println("Assigned Patient: None");
-        }
-    }
-
     public int getRoomNumber() {
         return roomNumber;
     }
@@ -165,17 +150,29 @@ public class Room {
         }
     }
 
+    public void displayRoomInfo() {
+        System.out.println("Room Number: " + roomNumber);
+        System.out.println("Type: " + type);
+        System.out.println("Occupied: " + isOccupied);
+        System.out.println("Under Maintenance: " + underMaintenance);
+
+        if (assignedPatient != null) {
+            System.out.println("Assigned Patient: " + assignedPatient.getName());
+        } else {
+            System.out.println("Assigned Patient: None");
+        }
+    }
+
     @Override
     public String toString() {
         String patientName = "None";
         if (assignedPatient != null) {
             patientName = assignedPatient.getName();
         }
-
-        return "Room Number: " + roomNumber
-                + ", Type: " + type
-                + ", Occupied: " + isOccupied
-                + ", Under Maintenance: " + underMaintenance
-                + ", Assigned Patient: " + patientName;
+        return "Room Number: " + roomNumber + "\n" +
+            "Type: " + type + "\n" +
+            "Occupied: " + isOccupied + "\n" +
+            "Under Maintenance: " + underMaintenance + "\n" +
+            "Assigned Patient: " + patientName + "\n";
     }
 }

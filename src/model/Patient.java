@@ -11,11 +11,11 @@ public class Patient extends Person {
     private List<Appointment> appointments;
 
     public Patient(String name, int id, int age, String gender, String phoneNumber, String medicalHistory) {
-    super(name, id, age, gender, phoneNumber);
-    this.medicalHistory = medicalHistory;
-    this.admitted = false;
-    this.appointments = new ArrayList<>();
-}
+        super(name, id, age, gender, phoneNumber);
+        this.medicalHistory = medicalHistory;
+        this.admitted = false;
+        this.appointments = new ArrayList<>();
+    }
 
     @Override
     public void displayRole() {
@@ -86,5 +86,13 @@ public class Patient extends Person {
         System.out.println("Admitted: " + admitted);
         System.out.println("Medical History: " + medicalHistory);
         System.out.println("Number of appointments: " + appointments.size());
+    }
+
+    @Override
+    public String toString() {
+        return super.toString() +
+            "Medical History: " + medicalHistory + "\n" +
+            "Admitted: " + admitted + "\n" +
+            "Number of appointments: " + appointments + "\n";
     }
 }

@@ -1,4 +1,5 @@
 package src.model;
+
 public class Doctor extends Person {
     private double salary;
     private String specialty;
@@ -6,7 +7,6 @@ public class Doctor extends Person {
 
     public Doctor(String name, int id, int age, String gender, String phoneNumber, double salary, String specialty, boolean vacation) {
         super(name, id, age, gender, phoneNumber);
-        
         this.salary = salary;
         this.specialty = specialty;
         this.vacation = vacation;
@@ -39,5 +39,20 @@ public class Doctor extends Person {
 
     public boolean getVacation() {
         return vacation;
+    }
+
+    public void displayDoctor() {
+        super.displayPerson();
+        System.out.println("Salary: " + salary);
+        System.out.println("Specialy: " + specialty);
+        System.out.println("Vacation" + vacation);
+    }
+
+    @Override
+    public String toString() {
+        return super.toString() +
+            "Salary: " + salary + "\n" +
+            "Specialy: " + specialty + "\n" +
+            "Vacation" + vacation + "\n";
     }
 }

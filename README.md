@@ -52,6 +52,8 @@ Elaine
 
 Andrew
 - Doctor class
+- Implemented hospital in main
+- Misc fixes across all classes
 
 Derek
 - Person class

@@ -1,26 +1,27 @@
 package src.model;
-import java.util.ArrayList;
 
+import java.util.ArrayList;
+import java.util.List;
 import src.exceptions.MaxCapacityException;
 
 public class Hospital {
     public static final int MAX_INSTANCES = 100;
 
     private String name;
-    private ArrayList<Patient> patients;
-    private ArrayList<Doctor> doctors;
-    private ArrayList<Appointment> appointments;
-    private ArrayList<Bill> bills;
-    private ArrayList<Room> rooms;
+    private List<Patient> patients;
+    private List<Doctor> doctors;
+    private List<Appointment> appointments;
+    private List<Bill> bills;
+    private List<Room> rooms;
 
     public Hospital(String name) {
-        this.name = name;
-        patients = new ArrayList<>();
-        doctors = new ArrayList<>();
-        appointments = new ArrayList<>();
-        bills = new ArrayList<>();
-        rooms = new ArrayList<>();
-    }
+    this.name = name;
+    patients = new ArrayList<>();
+    doctors = new ArrayList<>();
+    appointments = new ArrayList<>();
+    bills = new ArrayList<>();
+    rooms = new ArrayList<>();
+}
 
     public void addPatient(Patient patient) throws MaxCapacityException {
         if (patients.size() >= MAX_INSTANCES) {
@@ -64,6 +65,26 @@ public class Hospital {
 
     public String getName() {
         return name;
+    }
+
+    public List<Patient> getPatients() {
+        return patients;
+    }
+
+    public List<Doctor> getDoctors() {
+        return doctors;
+    }
+
+    public List<Appointment> getAppointments() {
+        return appointments;
+    }
+
+    public List<Bill> getBills() {
+        return bills;
+    }
+
+    public List<Room> getRooms() {
+        return rooms;
     }
 
     public void displayAllPatients() {
@@ -124,10 +145,21 @@ public class Hospital {
     }
 
     public void hospitalInfo() {
-    System.out.println("Hospital name: " + getName() + 
-                        ", Total Patients: " + patients.size() +
-                        ", Total Doctors: " + doctors.size() +
-                        ", Total Rooms: " + rooms.size() +
-                        ", Total Appointments: " + appointments.size());
+        System.out.println("Hospital name: " + name);
+        System.out.println("Total Patients: " + patients.size());
+        System.out.println("Total Doctors: " + doctors.size());
+        System.out.println("Total Appointments: " + appointments.size());
+        System.out.println("Total Bills: " + bills.size());
+        System.out.println("Total Rooms: " + rooms.size());
+    }
+
+    @Override
+    public String toString() {
+        return "Hospital Name: " + name + "\n" +
+            "Total Patients: " + patients.size() + "\n" +
+            "Total Doctors: " + doctors.size() + "\n" +
+            "Total Appointments: " + appointments.size() + "\n" +
+            "Total Bills: " + bills.size() + "\n" + 
+            "Total Rooms: " + rooms.size() + "\n";
     }
 }

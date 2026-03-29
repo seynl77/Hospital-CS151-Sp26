@@ -22,7 +22,6 @@ public class Appointment {
         if (date == null || time == null) {
             throw new IllegalArgumentException("Date and time cannot be null");
         }
-
         this.appointmentId = appointmentId;
         this.patient = patient;
         this.doctor = doctor;
@@ -57,6 +56,7 @@ public class Appointment {
         }
         status = "Completed";
         generateBill(baseCharge);
+        System.out.println("Appointment completed and bill generated.");
     }
 
     public void reschedule(LocalDate newDate, LocalTime newTime) throws InvalidOperationException {
@@ -113,5 +113,16 @@ public class Appointment {
         System.out.println("Time: " + time);
         System.out.println("Status: " + status);
         System.out.println("Bill status: " + (bill == null ? "Not generated" : (bill.isPaid() ? "Paid" : "Unpaid")));
+    }
+
+    @Override
+    public String toString() {
+        return "Appointment ID: " + appointmentId + "\n" +
+            "Patient: " + patient.getName() + "\n" +
+            "Doctor: " + doctor.getName() + "\n" +
+            "Date: " + date + "\n" +
+            "Time: " + time + "\n" +
+            "Status: " + status + "\n" +
+            "Bill status: " + (bill == null ? "Not generated" : (bill.isPaid() ? "Paid" : "Unpaid")) + "\n";
     }
 }
