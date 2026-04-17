@@ -510,43 +510,56 @@ public class Main {
 
     // -------------------- Utility Methods --------------------
     private static Patient selectPatient() {
+        if (hospital.getPatients().isEmpty()) return null;
         for (int i = 0; i < hospital.getPatients().size(); i++) {
             System.out.println(i + ": " + hospital.getPatients().get(i).getName());
         }
-        System.out.print("Select patient index: ");
-        int idx = Integer.parseInt(getInput());
-        return hospital.getPatients().get(idx);
+        int idx = promptIndex("Select patient index: ", hospital.getPatients().size());
+        return idx < 0 ? null : hospital.getPatients().get(idx);
     }
 
     private static Doctor selectDoctor() {
+        if (hospital.getDoctors().isEmpty()) return null;
         for (int i = 0; i < hospital.getDoctors().size(); i++) {
-            if(!hospital.getDoctors().get(i).isAvailable()) {
-                System.out.println(i + ": " + hospital.getDoctors().get(i).getName() + " is unavailable.");
-            } else {
-                System.out.println(i + ": " + hospital.getDoctors().get(i).getName());
-            }
+            System.out.println(i + ": " + hospital.getDoctors().get(i).getName());
         }
-        System.out.print("Select doctor index: ");
-        int idx = Integer.parseInt(getInput());
-        return hospital.getDoctors().get(idx);
+        int idx = promptIndex("Select doctor index: ", hospital.getDoctors().size());
+        return idx < 0 ? null : hospital.getDoctors().get(idx);
     }
 
     private static Appointment selectAppointment() {
+        if (hospital.getAppointments().isEmpty()) return null;
         for (int i = 0; i < hospital.getAppointments().size(); i++) {
-            System.out.println(i + ": Appointment ID " + hospital.getAppointments().get(i).getAppointmentId());
+            Appointment a = hospital.getAppointments().get(i);
+            System.out.println(i + ": " + a.getDate() + " " + a.getTime() + " - " + a.getStatus());
         }
-        System.out.print("Select appointment index: ");
-        int idx = Integer.parseInt(getInput());
-        return hospital.getAppointments().get(idx);
+        int idx = promptIndex("Select appointment index: ", hospital.getAppointments().size());
+        return idx < 0 ? null : hospital.getAppointments().get(idx);
     }
 
     private static Room selectRoom() {
+        if (hospital.getRooms().isEmpty()) return null;
         for (int i = 0; i < hospital.getRooms().size(); i++) {
             System.out.println(i + ": Room " + hospital.getRooms().get(i).getRoomNumber());
         }
-        System.out.print("Select room index: ");
-        int idx = Integer.parseInt(getInput());
-        return hospital.getRooms().get(idx);
+        int idx = promptIndex("Select room index: ", hospital.getRooms().size());
+        return idx < 0 ? null : hospital.getRooms().get(idx);
+    }
+
+    /** Prompts for an int in [0, size); re-prompts on bad input. Returns -1 if user types 'cancel'. */
+    private static int promptIndex(String prompt, int size) {
+        while (true) {
+            System.out.print(prompt);
+            String s = getInput();
+            if (s.equalsIgnoreCase("cancel")) return -1;
+            try {
+                int idx = Integer.parseInt(s);
+                if (idx >= 0 && idx < size) return idx;
+                System.out.println("Index out of range. Enter 0-" + (size - 1) + " or 'cancel'.");
+            } catch (NumberFormatException e) {
+                System.out.println("Not a number. Enter 0-" + (size - 1) + " or 'cancel'.");
+            }
+        }
     }
 
     private static void viewHospitalInfo() {

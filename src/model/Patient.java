@@ -91,8 +91,8 @@ public class Patient extends Person {
     @Override
     public String toString() {
         return super.toString() +
-            "Medical History: " + medicalHistory + "\n" +
-            "Admitted: " + admitted + "\n" +
-            "Number of appointments: " + appointments + "\n";
+                "Medical History: " + medicalHistory + "\n" +
+                "Admitted: " + admitted + "\n" +
+                "Number of appointments: " + appointments.size() + "\n";
     }
 }
